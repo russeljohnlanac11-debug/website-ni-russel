@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter for Megan 💌</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 30px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  color: #754264;
+  background: linear-gradient(135deg, #fce4ec, #e8d9fa, #fbd8e9);
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 650px;
+  text-align: center;
+  position: relative;
+  padding: 25px 0;
+}
+
+h1 {
+  color: #bd528b;
+  font-size: clamp(25px, 5vw, 38px);
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #956080;
+  margin-bottom: 65px;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: min(300px, 85vw);
+  height: 195px;
+  margin: 0 auto 30px;
+  cursor: pointer;
+  perspective: 1000px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.envelope {
+  position: absolute;
+  inset: 0;
+  background: #f7a8c9;
+  border-radius: 5px;
+  box-shadow: 0 15px 35px #b45a8938;
+  z-index: 2;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-left: 150px solid #fbd0e2;
+  border-right: 150px solid #fbd0e2;
+  border-top: 115px solid transparent;
+  border-radius: 0 0 5px 5px;
+}
+
+.envelope::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-bottom: 105px solid #f6b7d2;
+  z-index: 3;
+}
+
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 115px solid #ee8fba;
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  z-index: 5;
+}
+
+.seal {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 38px;
+  z-index: 6;
+  transition: opacity 0.3s;
+}
+
+.letter {
+  position: absolute;
+  bottom: 8px;
+  left: 5%;
+  width: 90%;
+  height: 165px;
+  padding: 20px 10px;
+  background: #fffafc;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px #8e507322;
+  transition: transform 0.9s ease;
+  z-index: 1;
+}
+
+.letter h2 {
+  color: #c75b91;
+  font-family: Georgia, serif;
+  margin-bottom: 12px;
+}
+
+.letter p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.envelope-wrapper.open .flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.envelope-wrapper.open .seal {
+  opacity: 0;
+}
+
+.envelope-wrapper.open .letter {
+  transform: translateY(-115px);
+  z-index: 4;
+}
+
+.hint {
+  color: #a45c84;
+  margin: 15px 0;
+  animation: pulse 1.5s infinite;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 13px 24px;
+  background: #d95796;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #bd3f7c;
+  transform: translateY(-2px);
+}
+
+#readBtn {
+  display: none;
+  margin-top: 15px;
+}
+
+.confession {
+  display: none;
+  text-align: left;
+  padding: 28px 23px;
+  margin: 25px auto;
+  background: #fffafcf2;
+  border: 1px solid white;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px #b45a891a;
+  animation: fadeIn 1s ease;
+}
+
+.confession h2 {
+  text-align: center;
+  color: #c74f8c;
+  font-family: Georgia, serif;
+  margin-bottom: 22px;
+}
+
+.confession p {
+  white-space: pre-line;
+  line-height: 1.9;
+  font-size: 15px;
+  color: #754264;
+  overflow-wrap: anywhere;
+  text-align: justify;
+}
+
+.confession .ending {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 19px;
+  color: #d95796;
+}
+
+.footer {
+  color: #a45c84;
+  font-size: 13px;
+  margin-top: 25px;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  color: #e77eae;
+  pointer-events: none;
+  animation: floatUp 7s linear forwards;
+  z-index: 10;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 350px) {
+  .envelope-wrapper {
+    transform: scale(0.85);
+    transform-origin: top center;
+    margin-bottom: 0;
+  }
+
+  .envelope-wrapper.open {
+    transform: scale(0.85);
+  }
+
+  .envelope::before {
+    border-left-width: 42.5vw;
+    border-right-width: 42.5vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heart {
+    animation-duration: 1s;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background music: starts when the envelope is clicked -->
+<audio
+  id="backgroundMusic"
+  src="music/Taylor Swift - I Knew It, I Knew You (Piano Version) (Official Music Video).mp3"
+  loop
+  preload="auto">
+</audio>
+
+<main class="container">
+
+  <h1>A Special Letter for You ♡</h1>
+
+  <p class="subtitle">
+    There is something I've been wanting to tell you...
+  </p>
+
+  <div class="envelope-wrapper"
+       id="envelope"
+       role="button"
+       tabindex="0"
+       aria-label="Open the letter">
+
+    <div class="letter">
+      <h2>Dear Megan, 💗</h2>
+      <p>
+        Haloooo, Megan!
+        There's something I've been wanting to tell you.
+        Tap to open my letter below. ♡
+      </p>
+    </div>
+
+    <div class="envelope"></div>
+    <div class="flap"></div>
+    <div class="seal">💗</div>
+  </div>
+
+  <p class="hint" id="hint">
+    Tap the envelope to open it 💌
+  </p>
+
+  <button id="readBtn">TAP HERE! ♡</button>
+
+  <article class="confession" id="confession">
+    <h2>To Megan ♡</h2>
+
+    <p id="message"></p>
+
+    <p class="ending">
+      <br>
+      Have a nice day, Attorney! 🫶🏻♥️
+    </p>
+  </article>
+
+  <p class="footer">Made by Ruzzengan. 💌</p>
+
+</main>
+
+<script>
+const envelope = document.getElementById("envelope");
+const hint = document.getElementById("hint");
+const readBtn = document.getElementById("readBtn");
+const confession = document.getElementById("confession");
+const message = document.getElementById("message");
+const backgroundMusic = document.getElementById("backgroundMusic");
+
+let isOpen = false;
+
+const confessionText = `Haloooo, Megann! I know this is so random pero may gusto sana akong sabihin sayo.
+
+It started wayback noong nakasabay ka namin sa jeep HAHAHA. You caught my attention and tinawag ka ni Dare sa name mo. That time kasi syempre physical appearance, ang ganda mo at ang ayos mo manamit napaka disente, kuhang kuha mo ako don eh, sino ba namang di mapapatingin sayo HAHAHAHA very ✨DEMURE✨.
+
+Akala ko nga yun na yung last na makaka-encounter kita, pero hindi HAHAHA.
+
+Kaya nung one time na nakasabay ka namin mag laro, then sinabi ni Dare yung pangalan mo to clear na ikaw yung naglalaro, nung sinabi mong "Oo" I took my shot to have conversation with you kasi nabanggit ni Asico buong name mo sa on-call discord namin habang nasa steal an egg tayo, then I stalked you kung ikaw ba talaga yung tinawag ni Dare na nakita namin sa jeep before HAHAHA.
+
+So nung na-confirm ko na ikaw yon, ito ako si simpleng singit sa server chat para mabigyan ka ng eggs HAHAHAHA. Then ayon, di ko rin expect na makikipaglaro ka sakin kasi akala ko di ka gaanong active sa Roblox or di ka masyado nakikipag-interact sa strangers or nakilala mo lang thru online.
+
+Pero lahat ng 'to plinano at diniskartehan ko lang HAHAHA kung paano kita ma-add sa mga socials mo.
+
+I've been curious about you, and I want to get to know you better kahit sa simpleng chats lang, kaya dumadating sa point na sobrang daldal ko na, kasi di ko expected na ka-humor pala kita HAHAHA. Pagpasensyahan mo na ako sa part na yan.
+
+Ayon lang. I want to express my feelings, kasi siguro freedom of speech? HAHAHAHA korni nak. But I like you, Megan.
+
+Naghahanap lang ako ng timing kung kailan ako magko-confess sayo, pero ginawa ko tong confession na to Oct 12, 2026. Ilang days pa kaya bago ako magkakaroon ng lakas ng loob HAHAHA. Just a perfect timing lang talaga.
+
+Kung nababasa mo man na 'to, it means naglakas-loob na ako HAHAHA. I will take the risk of this conversation kung magiging awkward ba siya or hindi, but still okay sakin kung anong kalalabasan or kung magiging speechless ka HAHAHA.
+
+I don't expect anything, basta ako nag-e-enjoy lang muna sa conversation na meron tayo.
+
+Yun lang naman! 🫶🏻♥️`;
+
+function openEnvelope() {
+  if (isOpen) return;
+
+  isOpen = true;
+  envelope.classList.add("open");
+
+  hint.textContent = "Tap the button below to open my letter... ♡";
+  readBtn.style.display = "inline-block";
+
+  // Start music automatically after the envelope is clicked.
+  // Browsers generally allow playback because this runs
+  // directly inside the user's click or keyboard interaction.
+  backgroundMusic.volume = 0.5;
+
+  const playPromise = backgroundMusic.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch((error) => {
+      console.warn(
+        "Music could not autoplay. Check the audio file path and browser settings.",
+        error
+      );
+    });
+  }
+
+  createHearts(12);
+}
+
+envelope.addEventListener("click", openEnvelope);
+
+envelope.addEventListener("keydown", function(event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openEnvelope();
+  }
+});
+
+readBtn.addEventListener("click", function() {
+  message.textContent = confessionText;
+  confession.style.display = "block";
+  readBtn.style.display = "none";
+  hint.style.display = "none";
+
+  createHearts(25);
+
+  setTimeout(function() {
+    confession.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 100);
+});
+
+function createHearts(count) {
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.textContent = ["♡", "♥", "💗"][
+      Math.floor(Math.random() * 3)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize =
+      (15 + Math.random() * 20) + "px";
+    heart.style.animationDuration =
+      (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+  }
+}
+</script>
+
+</body>
+</html>
